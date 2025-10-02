@@ -20,12 +20,25 @@ import re
 
 # Configuration Elastic Cloud
 # Utilise st.secrets pour Streamlit Cloud, sinon variables d'environnement
-ES_CLOUD_URL = st.secrets.get("ES_CLOUD_URL", os.getenv("ES_CLOUD_URL"))
-ES_API_KEY = st.secrets.get("ES_API_KEY", os.getenv("ES_API_KEY"))
+try:
+    ES_CLOUD_URL = st.secrets["ES_CLOUD_URL"]  # Streamlit Cloud
+except:
+    ES_CLOUD_URL = os.getenv("ES_CLOUD_URL")   # Railway, Docker, VPS
+
+try:
+    ES_API_KEY = st.secrets["ES_API_KEY"]  # Streamlit Cloud
+except:
+    ES_API_KEY = os.getenv("ES_API_KEY")   # Railway, Docker, VPS
 
 INDEX_NAME = "cv_chunks"
 EMBEDDING_MODEL = "BAAI/bge-m3"
-GROQ_API_KEY = st.secrets.get("GROQ_API_KEY", os.getenv("GROQ_API_KEY"))
+
+try:
+    GROQ_API_KEY = st.secrets["GROQ_API_KEY"]  # Streamlit Cloud
+except:
+    GROQ_API_KEY = os.getenv("GROQ_API_KEY")   # Railway, Docker, VPS
+
+
 GROQ_MODEL = "llama-3.3-70b-versatile"
 MIN_RELEVANCE_SCORE = 5.0
 
