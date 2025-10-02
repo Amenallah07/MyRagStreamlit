@@ -1,1 +1,1 @@
-web: sh start.s
+web: sh start.sh
